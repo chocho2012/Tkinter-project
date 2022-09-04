@@ -1,0 +1,93 @@
+#importing the modules
+import random
+from tkinter import*
+
+#initializing the GUI
+window =Tk()
+window.geometry("600x400")
+window.title("rock paper and scissors")
+
+#Heading of the game
+headingLine = Label(window,text = "Welcome to the rock paper and scissors game....", 
+                    fg = "white",
+                    bg ="black" ,
+                    font =("arial 15 bold"))
+headingLine.pack()
+
+#Palyer vs Computer widget where result is printed
+player= Label(window,text ="Player",
+                fg = "black",
+             bg = "white",
+             font =("arial 12 bold"))
+player.place(x=40 ,y= 40)
+
+vs= Label(window,text ="VS",
+                fg = "black",
+             bg = "white",
+             font =("arial 12 bold"))
+vs.place(x=270 ,y= 40)
+
+computer= Label(window,text ="Computer",
+                fg = "black",
+             bg = "white",
+             font =("arial 12 bold"))
+computer.place(x=500 ,y= 40)
+
+#printing the result on the screen
+result= Label(window,text ="",
+                fg = "black",
+             bg = "white",
+             font =("arial 12 bold"))
+result.place(x=270 ,y= 90)
+
+#choices of the computer available
+computer_choice = ["Rock" ,"Paper" ,"Scissor"]
+
+#disabling the button so cant be used again while the result is being printed out
+def button_disable():
+    rock['state'] =DISABLED
+    paper['state'] =DISABLED
+    scissor['state'] =DISABLED
+
+    
+    
+#programming the result 
+def game(player_choice):
+    value = random.choice(computer_choice)
+    if value == player_choice:
+        match_result="draw"
+    elif value == "Rock" and player_choice== "Scissor":
+        match_result ="You lost:("
+    elif value == "Scissor" and player_choice== "Paper":
+        match_result ="You lost:("
+    elif value == "Paper" and player_choice== "Rock":
+        match_result ="You lost:("
+    else:
+        match_result = "You win"
+    result['text'] =match_result
+    player.configure(text = player_choice)
+    computer.configure(text =value)
+    button_disable()
+
+#resetting the buttons 
+def reset():
+    rock["state"] =ACTIVE
+    paper["state"] =ACTIVE
+    scissor["state"] =ACTIVE
+    player['text'] = "Player"
+    computer['text']= "Computer"
+    result['text'] =""
+
+#buttons to get the value of player choice
+rock = Button(window , text = "Rock" ,font = ("arial 12 bold"), command =lambda player_choice ="Rock": game(player_choice))
+rock.place(x= 70 ,y= 190)
+paper = Button(window , text = "Paper" , font = ("arial 12 bold"),command= lambda player_choice ="Paper": game(player_choice))
+paper.place(x=250,y= 190)
+scissor = Button(window , text = "Scissor" ,font = ("arial 12 bold"), command =lambda player_choice ="Scissor": game(player_choice))
+scissor.place(x=500 ,y= 190)
+
+reset_button =Button(window, text= "Reset" ,fg= "white" ,bg = "Red",font = ("arial 12 bold"), command = reset)
+reset_button.place(x = 270 , y=250)
+        
+
+window.mainloop()
